@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import Blog from './Blog';
+import BlogItem from './BlogItem';
 
 
 var BlogList = React.createClass({
@@ -41,9 +41,9 @@ var BlogList = React.createClass({
     render: function () {
         var itemBlog = this.state.blogList.map(function (item) {
             return (
-                <Blog key={item.id} blog={item}>
+                <BlogItem key={item.id} blog={item}>
                     {item.abstractStr}
-                </Blog>
+                </BlogItem>
             );
         });
         return (

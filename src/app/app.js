@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import About from "../components/About";
 import Index from "../components/Index";
 import BlogList from "../components/BlogList";
-import BlogItem from "../components/BlogItem";
+import BlogDetail from "../components/BlogDetail";
 import {Router, hashHistory, Route, IndexRoute} from 'react-router'
 import React from 'react';
 import App from './Content'
@@ -23,7 +23,7 @@ import App from './Content'
  childRoutes: [
  {
  path: ':id',
- component: BlogItem,
+ component: BlogDetail,
  },
  ],
  }
@@ -42,10 +42,8 @@ ReactDOM.render((
             <IndexRoute component={Index}/>
             <Route path="/index" component={Index}/>
             <Route path="/about" component={About}/>
-            <Route path="/blog" component={BlogList}>
-                <Route path="/messages/:id" component={BlogItem}/>
-            </Route>
-
+            <Route path="/blog-list" component={BlogList}/>
+            <Route path="/blog/:id" component={BlogDetail}/>
         </Route>
     </Router>
 ), document.getElementById('app'));

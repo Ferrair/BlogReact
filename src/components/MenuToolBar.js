@@ -7,6 +7,7 @@ import LeftDrawer from "./LeftDrawer"
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
+import {IndexLink} from 'react-router'
 
 var MenuToolBar = React.createClass({
     getInitialState: function () {
@@ -24,13 +25,13 @@ var MenuToolBar = React.createClass({
         return (
             <div className="MenuToolBar">
                 <AppBar
-                    title="王启航的博客"
+                    title={<IndexLink to="/" activeClassName="active">王启航的博客</IndexLink>}
                     onTitleTouchTap={this.scrollToTop}
                     iconElementLeft={<IconButton onTouchTap={this.drawer}><NavigationMenu/></IconButton>}
                     iconElementRight={
                         <div>
                             <FlatButton label="主页" secondary={true} href="/#/index"/>
-                            <FlatButton label="博客" secondary={true} href="/#/blog"/>
+                            <FlatButton label="博客" secondary={true} href="/#/blog-list"/>
                             <FlatButton label="产品" secondary={true} href="/#/work"/>
                             <FlatButton label="关于" secondary={true} href="/#/about"/>
                         </div>
