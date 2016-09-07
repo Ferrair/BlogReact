@@ -1,22 +1,52 @@
-import React from 'react';
+/**
+ * Created on 2016/8/2.
+ *
+ * @author 王启航
+ * @version 1.0
+ */
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MenuToolBar from '../components/MenuToolBar';
-import BlogList from '../components/BlogList';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import About from "../components/About";
+import Index from "../components/Index";
+import BlogList from "../components/BlogList";
+import BlogItem from "../components/BlogItem";
+import {Router, hashHistory, Route, IndexRoute} from 'react-router'
+import React from 'react';
+import App from './Content'
+/*const routeConfig = [{
+ path: '/',
+ component: App,
+ indexRoute: {component: About},
+ childRoutes: [
+ {
+ path: 'blog',
+ indexRoute: BlogList,
+ childRoutes: [
+ {
+ path: ':id',
+ component: BlogItem,
+ },
+ ],
+ }
+ ]
+ }];*/
+/*
+ ReactDOM.render(<Router  routes={routeConfig} history={browserHistory}/>, document.getElementById('app'));*/
 
-injectTapEventPlugin();
 
-const App = () => (
-    <MuiThemeProvider>
-        <div>
-            <MenuToolBar/>
-            <BlogList />
-        </div>
-    </MuiThemeProvider>
-);
+/*
+ * 嵌套路由：先加载App,在加载其子类组件
+ */
+ReactDOM.render((
+    <Router history={hashHistory}>
+        <Route path="/" component={App}>
+            <IndexRoute component={Index}/>
+            <Route path="/index" component={Index}/>
+            <Route path="/about" component={About}/>
+            <Route path="/blog" component={BlogList}>
+                <Route path="/messages/:id" component={BlogItem}/>
+            </Route>
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('app')
-);
+        </Route>
+    </Router>
+), document.getElementById('app'));
+

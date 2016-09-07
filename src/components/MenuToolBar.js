@@ -1,31 +1,56 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import LeftDrawer from "./LeftDrawer"
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import Avatar from 'material-ui/Avatar';
 
-const MenuToolBar = () => (
-    <div className="MenuToolBar">
-        <AppBar
-            title="王启航的博客"
-            iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
-            iconElementRight={
-                <IconMenu
-                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-                    <MenuItem primaryText="Refresh"/>
-                    <MenuItem primaryText="Help"/>
-                    <MenuItem primaryText="Sign out"/>
-                    <MenuItem primaryText="Sign in"/>
-                </IconMenu>
-            }
+var MenuToolBar = React.createClass({
+    getInitialState: function () {
+        return {open: false};
+    },
 
-        />
-    </div>
-);
+    scrollToTop: function () {
+    },
+
+    drawer: function () {
+        this.setState({open: !this.state.open});
+    },
+
+    render: function () {
+        return (
+            <div className="MenuToolBar">
+                <AppBar
+                    title="王启航的博客"
+                    onTitleTouchTap={this.scrollToTop}
+                    iconElementLeft={<IconButton onTouchTap={this.drawer}><NavigationMenu/></IconButton>}
+                    iconElementRight={
+                        <div>
+                            <FlatButton label="主页" secondary={true} href="/#/index"/>
+                            <FlatButton label="博客" secondary={true} href="/#/blog"/>
+                            <FlatButton label="产品" secondary={true} href="/#/work"/>
+                            <FlatButton label="关于" secondary={true} href="/#/about"/>
+                        </div>
+                    }
+                />
+                <Drawer docked={false}
+                        width={300}
+                        open={this.state.open}
+                        onRequestChange={(open) => this.setState({open})}>
+                    <MenuItem>
+                        <Avatar
+                            size={50}
+                        />
+                    </MenuItem>
+                    <MenuItem>用户名</MenuItem>
+                    <MenuItem>登陆</MenuItem>
+                </Drawer>
+            </div>
+        );
+    }
+});
 
 export default MenuToolBar;

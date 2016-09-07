@@ -6,54 +6,8 @@
  */
 
 import React from 'react';
-import Remarkable from "remarkable";
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import Blog from './Blog';
 
-var Blog = React.createClass({
-    getInitialState: function () {
-        return {
-            expanded: false,
-            content: null
-        };
-    },
-    componentDidMount: function () {
-        var content = "我将是一个文章的内容哦";
-        this.setState({content: content});
-    },
-    rawMarkup: function (content) {
-        var md = new Remarkable();
-        var rawMarkup = md.render(content);
-        return {__html: rawMarkup};
-    },
-    handleExpand: function (newExpandedState) {
-        this.setState({expanded: newExpandedState});
-    },
-    render: function () {
-        return (
-            <div className="Blog">
-                <Card expanded={this.state.expanded} onExpandChange={this.handleExpand}>
-                    <CardHeader
-                        title={this.props.blog.title} subtitle={this.props.blog.type}
-                        actAsExpander={true}
-                        showExpandableButton={true}
-                    />
-                    { !this.state.expanded ?
-                        <CardText>
-                            <span dangerouslySetInnerHTML={this.rawMarkup(this.props.children.toString())}/>
-                        </CardText>
-                        : null
-                    }
-                    <CardText expandable={true}>
-                        <span dangerouslySetInnerHTML={this.rawMarkup(this.state.content)}/>
-                    </CardText>
-                    <CardText
-                        children={"查看次数：" + this.props.blog.times + "创建时间：" + this.props.blog.createdAt.toString()}/>
-                </Card>
-            </div>
-        );
-    }
-
-});
 
 var BlogList = React.createClass({
     getInitialState: function () {
