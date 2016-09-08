@@ -32,7 +32,7 @@ var MenuToolBar = React.createClass({
                         <div>
                             <FlatButton label="主页" secondary={true} href="/#/index"/>
                             <FlatButton label="博客" secondary={true} href="/#/blog-list"/>
-                            <FlatButton label="产品" secondary={true} href="/#/work"/>
+                            <FlatButton label="产品" secondary={true} href="/#/work-list"/>
                             <FlatButton label="关于" secondary={true} href="/#/about"/>
                         </div>
                     }

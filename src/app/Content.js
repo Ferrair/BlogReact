@@ -10,7 +10,7 @@ var App = React.createClass({
             <MuiThemeProvider>
                 <div>
                     <MenuToolBar/>
-                   {this.props.children}
+                    {this.props.children}
                 </div>
             </MuiThemeProvider>
         );

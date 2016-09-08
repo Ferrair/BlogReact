@@ -11,6 +11,7 @@ var ImageSlider = React.createClass({
     getInitialState: function () {
         return {imageList: []};
     },
+    // Todo : Ajax
     componentDidMount: function () {
         var data = [
             {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide1"},

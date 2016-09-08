@@ -13,6 +13,7 @@ var BlogList = React.createClass({
     getInitialState: function () {
         return {blogList: []};
     },
+    // Todo : Ajax
     componentDidMount: function () {
         var data = [
             {
@@ -39,7 +40,7 @@ var BlogList = React.createClass({
         this.setState({blogList: data});
     },
     render: function () {
-        var itemBlog = this.state.blogList.map(function (item) {
+        var itemBlog = this.state.workList.map(function (item) {
             return (
                 <BlogItem key={item.id} blog={item}>
                     {item.abstractStr}

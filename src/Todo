@@ -2,3 +2,5 @@
 2.左侧菜单 LeftDrawer 父类向子类传值（子类接受到了state怎么更新）
 3.Route手动跳转
 4.轮播器 跳转进来失效
+
+5.JS 原型链,Shadow children

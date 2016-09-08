@@ -5,34 +5,15 @@
  * @version 1.0
  */
 import ReactDOM from 'react-dom';
+import {Router, hashHistory, Route, IndexRoute} from 'react-router'
+import React from 'react';
+
+import App from './Content'
 import About from "../components/About";
 import Index from "../components/Index";
 import BlogList from "../components/BlogList";
+import WorkList from "../components/WorkList";
 import BlogDetail from "../components/BlogDetail";
-import {Router, hashHistory, Route, IndexRoute} from 'react-router'
-import React from 'react';
-import App from './Content'
-/*const routeConfig = [{
- path: '/',
- component: App,
- indexRoute: {component: About},
- childRoutes: [
- {
- path: 'blog',
- indexRoute: BlogList,
- childRoutes: [
- {
- path: ':id',
- component: BlogDetail,
- },
- ],
- }
- ]
- }];*/
-/*
- ReactDOM.render(<Router  routes={routeConfig} history={browserHistory}/>, document.getElementById('app'));*/
-
-
 /*
  * 嵌套路由：先加载App,在加载其子类组件
  */
@@ -42,6 +23,7 @@ ReactDOM.render((
             <IndexRoute component={Index}/>
             <Route path="/index" component={Index}/>
             <Route path="/about" component={About}/>
+            <Route path="/work-list" component={WorkList}/>
             <Route path="/blog-list" component={BlogList}/>
             <Route path="/blog/:id" component={BlogDetail}/>
         </Route>

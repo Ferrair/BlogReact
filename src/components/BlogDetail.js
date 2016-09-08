@@ -11,11 +11,13 @@ import Subheader from 'material-ui/Subheader';
 import Comment from "./Comment";
 import Remarkable from "remarkable";
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 var BlogDetail = React.createClass({
     getInitialState: function () {
-        return {blog: [], commentList: []};
+        return {blog: [], commentList: [], value: ''};
     },
+    // Todo : Ajax
     componentDidMount: function () {
         console.log("Id-> " + this.props.params.id);
         var blog =
@@ -57,7 +59,13 @@ var BlogDetail = React.createClass({
         var rawMarkup = md.render(content);
         return {__html: rawMarkup};
     },
-    postComment: function () {
+    onTextChanged: function (event) {
+        this.setState({value: event.target.value});
+    },
+
+    // Todo : Ajax
+    onPostComment: function () {
+        console.log("Post a comment-> " + this.state.value);
     },
 
     render: function () {
@@ -80,13 +88,27 @@ var BlogDetail = React.createClass({
                 {/*评论区*/}
                 <TextField
                     hintText="你的评论"
+                    errorText="最多200字"
                     rows={1}
                     rowsMax={8}
                     multiLine={true}
                     fullWidth={true}
+                    value={this.state.value}
+                    onChange={this.onTextChanged}
                 />
+                <FlatButton label="发表" primary={true} onClick={this.onPostComment}/>
             </div>
         );
+    },
+
+    // Todo
+    onReply :function (id) {
+        console.log("Reply" + id);
+    },
+    // Todo
+    onDelete :function (id) {
+        console.log("Delete" + id);
     }
+
 });
 export default BlogDetail;
