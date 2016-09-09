@@ -36,6 +36,6 @@
     "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
     "remarkable": "^1.6.2",
-    "nuka-carousel": "latest"
+    "react-image-gallery": "latest"
   }
 }

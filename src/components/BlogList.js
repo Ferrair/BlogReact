@@ -7,7 +7,7 @@
 
 import React from 'react';
 import BlogItem from './BlogItem';
-
+import $ from 'jquery';
 
 var BlogList = React.createClass({
     getInitialState: function () {
@@ -15,32 +15,25 @@ var BlogList = React.createClass({
     },
     // Todo : Ajax
     componentDidMount: function () {
-        var data = [
-            {
+        $.get({
+            url: 'http://localhost:8082/api/blog/queryById',
+            data: {
                 id: 1,
-                title: "Pete Hunt",
-                type: "Java",
-                abstractStr: "完成了上面红色方框中的工作。JRE 的来加载器从硬盘中读取 class 文件，" +
-                "载入到系统分配给 JVM 的内存区域–运行数据区（`Runtime Data Areas`). 然后执行引擎解释或者编译类文件，" +
-                "转化成特定 CPU 的机器码，CPU 执行机器码，至此完成整个过程。",
-                createdAt: "2016:12:21",
-                times: "3"
             },
-            {
-                id: 2,
-                title: "Jordan Walke",
-                type: "Android",
-                abstractStr: "完成了上面红色方框中的工作。JRE 的来加载器从硬盘中读取 class 文件，" +
-                "载入到系统分配给 JVM 的内存区域–运行数据区（`Runtime Data Areas`). 然后执行引擎解释或者编译类文件，" +
-                "转化成特定 CPU 的机器码，CPU 执行机器码，至此完成整个过程。",
-                createdAt: "2016:12:21",
-                times: "4"
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Ajax error-> " + data.Code + " " + data.Msg);
+                    return;
+                }
+                this.setState({blogList: data.Result});
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                console.log("Error in Ajax.");
             }
-        ];
-        this.setState({blogList: data});
+        });
     },
     render: function () {
-        var itemBlog = this.state.workList.map(function (item) {
+        var itemBlog = this.state.blogList.map(function (item) {
             return (
                 <BlogItem key={item.id} blog={item}>
                     {item.abstractStr}

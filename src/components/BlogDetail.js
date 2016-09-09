@@ -14,6 +14,11 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 var BlogDetail = React.createClass({
+    propTypes: {
+        blog: React.PropTypes.object.isRequired,
+        value: React.PropTypes.string.isRequired,
+    },
+
     getInitialState: function () {
         return {blog: [], commentList: [], value: ''};
     },
@@ -93,7 +98,6 @@ var BlogDetail = React.createClass({
                     rowsMax={8}
                     multiLine={true}
                     fullWidth={true}
-                    value={this.state.value}
                     onChange={this.onTextChanged}
                 />
                 <FlatButton label="发表" primary={true} onClick={this.onPostComment}/>
@@ -102,11 +106,11 @@ var BlogDetail = React.createClass({
     },
 
     // Todo
-    onReply :function (id) {
+    onReply: function (id) {
         console.log("Reply" + id);
     },
     // Todo
-    onDelete :function (id) {
+    onDelete: function (id) {
         console.log("Delete" + id);
     }
 

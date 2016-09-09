@@ -9,6 +9,7 @@ import React from 'react';
 import Remarkable from "remarkable";
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import $ from 'jquery';
 
 /*
  * 只在BlogList里面出现
@@ -26,12 +27,26 @@ var BlogItem = React.createClass({
     getInitialState: function () {
         return {
             expanded: false, // Card是否expand
-            content: null // Blog的内容
+            content: '' // Blog的内容
         };
     },
     componentDidMount: function () {
-        var content = "我将是一个文章的内容哦";
-        this.setState({content: content});
+        $.get({
+            url: 'http://localhost:8082/api/blog/queryById',
+            data: {
+                id: this.props.blog.id
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("请求出错->" + data.Code + " " + data.Msg);
+                    return;
+                }
+                this.setState({content: data.Result.content});
+            },
+            error: function () {
+                console.log("AJAX错了");
+            }
+        });
     },
     rawMarkup: function (content) {
         var md = new Remarkable();

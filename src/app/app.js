@@ -21,7 +21,6 @@ ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Index}/>
-            <Route path="/index" component={Index}/>
             <Route path="/about" component={About}/>
             <Route path="/work-list" component={WorkList}/>
             <Route path="/blog-list" component={BlogList}/>

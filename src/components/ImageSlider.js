@@ -5,35 +5,16 @@
  * @version 1.0
  */
 import React from 'react';
-import Carousel  from 'nuka-carousel';
+import ImageGallery from 'react-image-gallery';
 
 var ImageSlider = React.createClass({
-    getInitialState: function () {
-        return {imageList: []};
-    },
-    // Todo : Ajax
-    componentDidMount: function () {
-        var data = [
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide1"},
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide2"},
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide3"},
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide4"},
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide5"},
-            {url: "http://placehold.it/1000x400/ffffff/c0392b/&text=slide6"},
-        ];
-        this.setState({imageList: data});
-    },
 
-    render: function () {
-        var itemImage = this.state.imageList.map(function (item) {
-            return (
-                <img src={item.url}/>
-            );
-        });
+    render() {
+
         return (
-            <Carousel autoplay={true} speed={500}>
-                {itemImage}
-            </Carousel>
+            <div>
+                主页
+            </div>
         );
     }
 });
