@@ -8,14 +8,24 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import CurrentUser from "../manager/CurrentUser";
 
 var LoginDialog = React.createClass({
+
     getInitialState: function () {
         return {username: '', password: ''};
     },
 
     doLogin: function () {
         console.log("Post a comment-> " + this.state.username + " " + this.state.password);
+        CurrentUser.id = 1;
+        CurrentUser.username = "王启航";
+        CurrentUser.coverUri="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQOstyJjaKQ8a3N_nKwOvWA23WORQOP8MBkzT_Zo0xfdH0Wb1afwXMQJsg";
+        CurrentUser.avatarUri="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQOstyJjaKQ8a3N_nKwOvWA23WORQOP8MBkzT_Zo0xfdH0Wb1afwXMQJsg";
+        /*
+         * Close the login dialog by call onHandleClose in this.props(from LeftDrawer).
+         */
+        this.props.onHandleClose();
     },
 
     onUserNameChanged: function (event) {

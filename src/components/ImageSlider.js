@@ -5,7 +5,6 @@
  * @version 1.0
  */
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
 
 var ImageSlider = React.createClass({
 
@@ -13,7 +12,7 @@ var ImageSlider = React.createClass({
 
         return (
             <div>
-                主页
+                <h1>我不想写了，你将就看吧</h1>
             </div>
         );
     }

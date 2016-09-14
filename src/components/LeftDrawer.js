@@ -9,10 +9,14 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 import LoginDialog from "./LoginDialog";
+import InfoDialog from "./InfoDialog";
+import CurrentUser from "../manager/CurrentUser";
+
 
 var LeftDrawer = React.createClass({
     getInitialState: function () {
-        return {openLoginDialog: false};
+        return {openLoginDialog: false, openInfoDialog: false};
+
     },
 
     render: function () {
@@ -21,19 +25,34 @@ var LeftDrawer = React.createClass({
                     width={300}
                     open={this.props.open}
                     onRequestChange={this.props.onRequestChange}>
-                <MenuItem style={avatarStyle}>
+                <MenuItem style={avatarStyle} onClick={this.openInfoDialog}>
                     <Avatar
                         size={50}
                     />
-                    用户名
+                    {CurrentUser.username}
+                    {/*Open user information dialog.*/}
+                    <InfoDialog open={this.state.openInfoDialog} onHandleClose={this.closeInfoDialog}/>
                 </MenuItem>
                 <MenuItem onClick={this.openLoginDialog}>
                     登陆
+                    {/*Open login dialog.*/}
                     <LoginDialog open={this.state.openLoginDialog} onHandleClose={this.closeLoginDialog}/>
                 </MenuItem>
 
             </Drawer>
         );
+    },
+
+    openInfoDialog: function () {
+        // Open Login Dialog, force user to login.
+        if (CurrentUser.id == null) {
+            this.openLoginDialog();
+            return;
+        }
+        this.setState({openInfoDialog: true});
+    },
+    closeInfoDialog: function () {
+        this.setState({openInfoDialog: false});
     },
 
     closeLoginDialog: function () {
