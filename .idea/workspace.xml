@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3afaebdc-9a61-4bda-9eec-422af95033b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/InfoDialog.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/manager/CurrentUser.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/blog_node_modules.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/blog.iml" afterPath="$PROJECT_DIR$/.idea/blog.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/Config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ImageSlider.js" afterPath="$PROJECT_DIR$/src/components/ImageSlider.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/LeftDrawer.js" afterPath="$PROJECT_DIR$/src/components/LeftDrawer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/LoginDialog.js" afterPath="$PROJECT_DIR$/src/components/LoginDialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/BlogDetail.js" afterPath="$PROJECT_DIR$/src/components/BlogDetail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/BlogItem.js" afterPath="$PROJECT_DIR$/src/components/BlogItem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/BlogList.js" afterPath="$PROJECT_DIR$/src/components/BlogList.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/WorkList.js" afterPath="$PROJECT_DIR$/src/components/WorkList.js" />
     </list>
     <ignored path="blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +29,30 @@
     <favorites_list name="blog" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="BlogDetail.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/BlogDetail.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="624">
+              <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+              <folding>
+                <element signature="e#67#93#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkList.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/WorkList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="448">
+              <caret line="59" column="71" selection-start-line="59" selection-start-column="68" selection-end-line="59" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -58,22 +78,23 @@
         <option value="$PROJECT_DIR$/src/components/Blog.js" />
         <option value="$PROJECT_DIR$/src/app/Content.js" />
         <option value="$PROJECT_DIR$/src/components/WorkItem.js" />
-        <option value="$PROJECT_DIR$/src/components/WorkList.js" />
         <option value="$PROJECT_DIR$/src/components/Comment.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/www/drawer.css" />
         <option value="$PROJECT_DIR$/src/app/app.js" />
         <option value="$PROJECT_DIR$/src/components/MenuToolBar.js" />
         <option value="$PROJECT_DIR$/src/Todo" />
-        <option value="$PROJECT_DIR$/src/components/BlogDetail.js" />
-        <option value="$PROJECT_DIR$/src/components/BlogList.js" />
-        <option value="$PROJECT_DIR$/src/components/BlogItem.js" />
         <option value="$PROJECT_DIR$/src/components/Index.js" />
         <option value="$PROJECT_DIR$/src/manager/UsrManager.js" />
         <option value="$PROJECT_DIR$/src/components/InfoDialog.js" />
         <option value="$PROJECT_DIR$/src/components/LeftDrawer.js" />
         <option value="$PROJECT_DIR$/src/components/LoginDialog.js" />
         <option value="$PROJECT_DIR$/src/components/ImageSlider.js" />
+        <option value="$PROJECT_DIR$/src/components/WorkList.js" />
+        <option value="$PROJECT_DIR$/src/components/BlogList.js" />
+        <option value="$PROJECT_DIR$/src/app/Config.js" />
+        <option value="$PROJECT_DIR$/src/components/BlogItem.js" />
+        <option value="$PROJECT_DIR$/src/components/BlogDetail.js" />
       </list>
     </option>
   </component>
@@ -89,10 +110,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="169" />
-    <option name="y" value="146" />
     <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -165,7 +184,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -183,14 +202,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,15 +221,18 @@
     <property name="nodejs_interpreter_path" value="D:/nodejs/node" />
     <property name="js-jscs-nodeInterpreter" value="D:\nodejs\node.exe" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="SearchEverywhereHistoryKey" value="BlogL&#9;FILE&#9;file:///Users/dawizards/WQH/BlogReact/src/components/BlogList.js" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\blog\src\components" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="E:\blog\dependecy" />
       <recent name="E:\blog\src\components" />
       <recent name="E:\blog\src\app" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\blog\src\components" />
     </key>
   </component>
   <component name="RunManager">
@@ -291,7 +313,8 @@
       <workItem from="1473231980917" duration="8945000" />
       <workItem from="1473331982784" duration="7635000" />
       <workItem from="1473398871770" duration="14087000" />
-      <workItem from="1473834537228" duration="8713000" />
+      <workItem from="1473834537228" duration="10041000" />
+      <workItem from="1473909788024" duration="3849000" />
     </task>
     <task id="LOCAL-00001" summary="Comment!">
       <created>1473244662188</created>
@@ -307,11 +330,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473337529948</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="User Info.">
+      <created>1473850680582</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1473850680582</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72595000" />
+    <option name="totallyTimeSpent" value="77772000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -323,17 +353,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="169" y="146" width="1920" height="1057" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17535545" sideWeight="0.49168646" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17535545" sideWeight="0.49168646" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32858595" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961783" sideWeight="0.5026022" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981412" sideWeight="0.50831354" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2800852" sideWeight="0.49739778" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2449187" sideWeight="0.49739778" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -369,6 +399,24 @@
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
@@ -383,7 +431,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Comment!" />
     <MESSAGE value="Post Comment,Work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Post Comment,Work." />
+    <MESSAGE value="User Info." />
+    <option name="LAST_COMMIT_MESSAGE" value="User Info." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -397,7 +446,7 @@
         <state relative-caret-position="120">
           <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -406,31 +455,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#68#94#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MenuToolBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BlogList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#68#94#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -439,7 +464,7 @@
         <state relative-caret-position="30">
           <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -448,10 +473,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="50" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="50" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#68#94#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -564,7 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -573,17 +594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/WorkList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="24" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#66#92#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -622,7 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -631,45 +640,7 @@
         <state relative-caret-position="255">
           <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BlogDetail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="72" column="60" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="60" />
-          <folding>
-            <element signature="e#67#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Comment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="38" column="111" selection-start-line="38" selection-start-column="72" selection-end-line="38" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BlogItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
-          <folding>
-            <element signature="e#67#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BlogList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="24" column="62" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#68#94#0" expanded="false" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -678,7 +649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -686,7 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -694,10 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#44#70#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -724,8 +689,8 @@
         <state relative-caret-position="117">
           <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#64#90#0" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#64#90#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -734,7 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -742,7 +706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -751,7 +714,62 @@
         <state relative-caret-position="373">
           <caret line="57" column="4" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
           <folding>
-            <element signature="e#66#92#0" expanded="true" />
+            <element signature="e#66#92#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/Comment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="38" column="111" selection-start-line="38" selection-start-column="72" selection-end-line="38" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="5" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BlogItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
+          <folding>
+            <element signature="e#67#93#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BlogList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/WorkList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="59" column="71" selection-start-line="59" selection-start-column="68" selection-end-line="59" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BlogDetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+          <folding>
+            <element signature="e#67#93#0" expanded="true" />
           </folding>
         </state>
       </provider>

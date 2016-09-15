@@ -10,6 +10,7 @@ import Remarkable from "remarkable";
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import $ from 'jquery';
+import API from '../app/Config';
 
 /*
  * 只在BlogList里面出现
@@ -27,14 +28,13 @@ var BlogItem = React.createClass({
     getInitialState: function () {
         return {
             expanded: false, // Card是否expand
-            content: '' // Blog的内容
         };
     },
     componentDidMount: function () {
         $.get({
-            url: 'http://localhost:8082/api/blog/queryById',
+            url: API + '/blog/queryById',
             data: {
-                id: this.props.blog.id
+                id: this.props.blog.id,
             },
             success: (data) => {
                 if (data.Code != 100) {
@@ -42,6 +42,7 @@ var BlogItem = React.createClass({
                     return;
                 }
                 this.setState({content: data.Result.content});
+                console.log(data.Result.content);
             },
             error: function () {
                 console.log("AJAX错了");
@@ -57,6 +58,10 @@ var BlogItem = React.createClass({
         this.setState({expanded: newExpandedState});
     },
     render: function () {
+        /*
+         *
+         */
+        var hyperlink = "/#/blog/" + this.props.blog.id;
         return (
             <div className="Blog">
                 <Card expanded={this.state.expanded} onExpandChange={this.handleExpand}>
@@ -72,14 +77,14 @@ var BlogItem = React.createClass({
                         : null
                     }
                     <CardText expandable={true}>
-                        <span dangerouslySetInnerHTML={this.rawMarkup(this.state.content)}/>
+                        <span dangerouslySetInnerHTML={this.rawMarkup(this.props.blog.content)}/>
                     </CardText>
 
                     <CardText
                         children={"查看次数：" + this.props.blog.times + "   创建时间：" + this.props.blog.createdAt.toString()}>
                     </CardText>
                     <CardActions>
-                        <FlatButton label="查看评论" primary={true} href="/#/blog/1"/>
+                        <FlatButton label="查看评论" primary={true} href={hyperlink}/>
                     </CardActions>
                 </Card>
             </div>

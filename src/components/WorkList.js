@@ -9,6 +9,8 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import $ from 'jquery';
+import API from '../app/Config';
 
 const styles = {
     root: {
@@ -47,6 +49,24 @@ var WorkList = React.createClass({
             }
         ];
         this.setState({workList: data});
+
+        $.get({
+            url: API + '/work',
+            data: {
+                pageNum: 1,
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("请求出错->" + data.Code + " " + data.Msg);
+                    return;
+                }
+                this.setState({workList: data.Result});
+                console.log(this.state.workList);
+            },
+            error: function () {
+                console.log("AJAX错了");
+            }
+        });
     },
     // Todo
     onDownload:function (event) {

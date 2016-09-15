@@ -8,6 +8,7 @@
 import React from 'react';
 import BlogItem from './BlogItem';
 import $ from 'jquery';
+import API from '../app/Config';
 
 var BlogList = React.createClass({
     getInitialState: function () {
@@ -16,16 +17,18 @@ var BlogList = React.createClass({
     // Todo : Ajax
     componentDidMount: function () {
         $.get({
-            url: 'http://localhost:8082/api/blog/queryById',
+            url: API + '/blog',
             data: {
-                id: 1,
+                pageNum: 1,
+                includeContent: true
             },
             success: (data) => {
                 if (data.Code != 100) {
-                    console.error("Ajax error-> " + data.Code + " " + data.Msg);
+                    console.error("Error-> " + data.Code + " " + data.Msg);
                     return;
                 }
                 this.setState({blogList: data.Result});
+                console.log("BlogList-> " + this.state.blogList);
             },
             error: function (xmlHttpRequest, textStatus, errorThrown) {
                 console.log("Error in Ajax.");

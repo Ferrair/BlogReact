@@ -12,51 +12,63 @@ import Comment from "./Comment";
 import Remarkable from "remarkable";
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import $ from 'jquery';
+import API from '../app/Config';
 
 var BlogDetail = React.createClass({
     propTypes: {
-        blog: React.PropTypes.object.isRequired,
+        blog: React.PropTypes.object,
         value: React.PropTypes.string.isRequired,
     },
 
     getInitialState: function () {
-        return {blog: [], commentList: [], value: ''};
+        return {blog: "", commentList: [], value: ''};
     },
     // Todo : Ajax
     componentDidMount: function () {
         console.log("Id-> " + this.props.params.id);
-        var blog =
-        {
-            id: 1,
-            title: "Pete Hunt",
-            type: "Java",
-            abstractStr: "完成了上面红色方框中的工作。JRE 的来加载器从硬盘中读取 class 文件，" +
-            "载入到系统分配给 JVM 的内存区域–运行数据区（`Runtime Data Areas`). 然后执行引擎解释或者编译类文件，" +
-            "转化成特定 CPU 的机器码，CPU 执行机器码，至此完成整个过程。",
-            content: "完成了上面红色方框中的工作。JRE 的来加载器从硬盘中读取 class 文件，" +
-            "载入到系统分配给 JVM 的内存区域–运行数据区（`Runtime Data Areas`). 然后执行引擎解释或者编译类文件，" +
-            "转化成特定 CPU 的机器码，CPU 执行机器码，至此完成整个过程。",
-            createdAt: "2016:12:21",
-            times: "3"
-        };
-        var commentList = [
-            {
-                id: 1,
-                content: "I am a comment",
-                createdAt: "2016:12:21",
-                creatorAvatarUri: null,
-                creatorName: "王启航"
+        $.get({
+            url: API + '/blog/queryById',
+            data: {
+                /*
+                 * id is from BlogItem.
+                 */
+                id: this.props.params.id
             },
-            {
-                id: 2,
-                content: "I am a comment",
-                createdAt: "2016:12:21",
-                creatorAvatarUri: null,
-                creatorName: "王启航"
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("请求出错->" + data.Code + " " + data.Msg);
+                    return;
+                }
+                this.setState({blog: data.Result[0]});
+                console.log(this.state.blog);
+            },
+            error: function () {
+                console.log("AJAX错了");
             }
-        ];
+        });
 
-        this.setState({blog: blog, commentList: commentList});
+        $.get({
+            url: API + '/blog/queryComment',
+            data: {
+                /*
+                 * id is from BlogItem.
+                 */
+                belongTo: this.props.params.id,
+                pageNum: 1
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("请求出错->" + data.Code + " " + data.Msg);
+                    return;
+                }
+                this.setState({commentList: data.Result});
+                console.log("CommentList-> " + this.state.commentList);
+            },
+            error: function () {
+                console.log("AJAX错了");
+            }
+        });
     },
 
     rawMarkup: function (content) {
