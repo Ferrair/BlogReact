@@ -9,13 +9,14 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 import LoginDialog from "./LoginDialog";
+import RegisterDialog from "./RegisterDialog";
 import InfoDialog from "./InfoDialog";
 import CurrentUser from "../manager/CurrentUser";
 
 
 var LeftDrawer = React.createClass({
     getInitialState: function () {
-        return {openLoginDialog: false, openInfoDialog: false};
+        return {openLoginDialog: false, openInfoDialog: false, openRegisterDialog: false};
 
     },
 
@@ -39,6 +40,12 @@ var LeftDrawer = React.createClass({
                     <LoginDialog open={this.state.openLoginDialog} onHandleClose={this.closeLoginDialog}/>
                 </MenuItem>
 
+                <MenuItem onClick={this.openRegisterDialog}>
+                    注册
+                    {/*Open Register dialog.*/}
+                    <RegisterDialog open={this.state.openRegisterDialog} onHandleClose={this.closeRegisterDialog}/>
+                </MenuItem>
+
             </Drawer>
         );
     },
@@ -60,6 +67,13 @@ var LeftDrawer = React.createClass({
     },
     openLoginDialog: function () {
         this.setState({openLoginDialog: true});
+    },
+
+    closeRegisterDialog: function () {
+        this.setState({openRegisterDialog: false});
+    },
+    openRegisterDialog: function () {
+        this.setState({openRegisterDialog: true});
     },
 });
 var avatarStyle = {

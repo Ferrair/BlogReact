@@ -12,6 +12,7 @@ import Comment from "./Comment";
 import Remarkable from "remarkable";
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import CurrentUser from "../manager/CurrentUser";
 import $ from 'jquery';
 import API from '../app/Config';
 
@@ -24,9 +25,10 @@ var BlogDetail = React.createClass({
     getInitialState: function () {
         return {blog: "", commentList: [], value: ''};
     },
-    // Todo : Ajax
     componentDidMount: function () {
-        console.log("Id-> " + this.props.params.id);
+        /*
+         *  Get Blog.
+         */
         $.get({
             url: API + '/blog/queryById',
             data: {
@@ -40,6 +42,9 @@ var BlogDetail = React.createClass({
                     console.error("请求出错->" + data.Code + " " + data.Msg);
                     return;
                 }
+                /*
+                 * data.Result is always array.
+                 */
                 this.setState({blog: data.Result[0]});
                 console.log(this.state.blog);
             },
@@ -47,7 +52,9 @@ var BlogDetail = React.createClass({
                 console.log("AJAX错了");
             }
         });
-
+        /*
+         *  Get CommentList.
+         */
         $.get({
             url: API + '/blog/queryComment',
             data: {
@@ -80,9 +87,31 @@ var BlogDetail = React.createClass({
         this.setState({value: event.target.value});
     },
 
-    // Todo : Ajax
     onPostComment: function () {
-        console.log("Post a comment-> " + this.state.value);
+        console.log(CurrentUser);
+        $.post({
+            url: API + '/blog/appendComment',
+            data: {
+                belongTo: this.state.blog.id,
+                content: this.state.value,
+                createdBy: CurrentUser.id,
+            },
+            headers: {
+                'token': CurrentUser.token,
+                'userID': CurrentUser.id,
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                    this.setState({value: '', commentList: this.commentList.push(data.Result[0])});
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                console.log("Error in Ajax.");
+                this.setState({value: ''});
+            }
+        });
     },
 
     render: function () {
