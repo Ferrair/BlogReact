@@ -71,7 +71,9 @@ var RegisterDialog = React.createClass({
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
                     console.log("Login Success");
+
                     CurrentUser.token = data.Result[0].token;
+                    CurrentUser.save();
                 }
                 /*
                  * Close the register dialog by call onHandleClose in this.props(from LeftDrawer).

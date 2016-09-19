@@ -36,6 +36,7 @@ var LoginDialog = React.createClass({
                     CurrentUser.coverUri = data.Result[0].coverUri;
                     CurrentUser.username = data.Result[0].username;
                     CurrentUser.token = data.Result[0].token;
+                    CurrentUser.save();
                 }
                 /*
                  * Close the login dialog by call onHandleClose in this.props(from LeftDrawer).

@@ -33,9 +33,11 @@
     "material-ui": "^0.15.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-event-emitter-mixin": "0.0.4",
+    "react-image-gallery": "latest",
     "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
     "remarkable": "^1.6.2",
-    "react-image-gallery": "latest"
+    "react-cookie": "latest"
   }
 }

@@ -15,21 +15,27 @@ import FlatButton from 'material-ui/FlatButton';
 import CurrentUser from "../manager/CurrentUser";
 import $ from 'jquery';
 import API from '../app/Config';
+import EventEmitterMixin from 'react-event-emitter-mixin';
+import ReplyDialog from './ReplyDialog';
 
 var BlogDetail = React.createClass({
+    /*
+     * mixins 是一个可复用的组件相当与PHP的trait.
+     */
+    mixins: [EventEmitterMixin],
     propTypes: {
         blog: React.PropTypes.object,
         value: React.PropTypes.string.isRequired,
     },
 
     getInitialState: function () {
-        return {blog: "", commentList: [], value: ''};
+        return {blog: "", commentList: [], value: '', openReplyDialog: false, selectComment: null};
     },
     componentDidMount: function () {
         /*
          *  Get Blog.
          */
-        $.get({
+        $.ajax({
             url: API + '/blog/queryById',
             data: {
                 /*
@@ -55,7 +61,7 @@ var BlogDetail = React.createClass({
         /*
          *  Get CommentList.
          */
-        $.get({
+        $.ajax({
             url: API + '/blog/queryComment',
             data: {
                 /*
@@ -78,6 +84,16 @@ var BlogDetail = React.createClass({
         });
     },
 
+    componentWillMount(){
+        this.eventEmitter('on', 'reply', (comment)=> {
+            this.onReply(comment);
+        });
+
+        this.eventEmitter('on', 'delete', (comment)=> {
+            this.onDelete(comment);
+        });
+    },
+
     rawMarkup: function (content) {
         var md = new Remarkable();
         var rawMarkup = md.render(content);
@@ -87,24 +103,59 @@ var BlogDetail = React.createClass({
         this.setState({value: event.target.value});
     },
 
-    onPostComment: function () {
+    doPostComment: function () {
         console.log(CurrentUser);
-        $.post({
+        $.ajax({
             url: API + '/blog/appendComment',
+            type: "POST",
             data: {
                 belongTo: this.state.blog.id,
                 content: this.state.value,
-                createdBy: CurrentUser.id,
+                createdBy: CurrentUser.getId(),
             },
             headers: {
-                'token': CurrentUser.token,
-                'userID': CurrentUser.id,
+                'token': CurrentUser.getToken(),
+                'userID': CurrentUser.getId(),
             },
             success: (data) => {
                 if (data.Code != 100) {
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
-                    this.setState({value: '', commentList: this.commentList.push(data.Result[0])});
+                }
+                this.setState({value: ''});
+                React.findDOMNode(this.refs.YourComment).value = '';
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                console.log("Error in Ajax.");
+                this.setState({value: ''});
+                React.findDOMNode(this.refs.YourComment).value = '';
+            }
+        });
+    },
+
+    onReply: function (item) {
+        console.log("Reply" + item);
+        this.setState({openReplyDialog: true, selectComment: item});
+    },
+
+    onDelete: function (item) {
+        console.log("Delete" + item);
+        this.setState({selectComment: item});
+        $.ajax({
+            url: API + '/blog/deleteById',
+            type: "DELETE",
+            data: {
+                id: item.id,
+            },
+            headers: {
+                'token': CurrentUser.getToken(),
+                'userID': CurrentUser.getId(),
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                    this.setState({value: '', commentList: this.commentList.push([data.Result[0]])});
                 }
             },
             error: function (xmlHttpRequest, textStatus, errorThrown) {
@@ -115,11 +166,6 @@ var BlogDetail = React.createClass({
     },
 
     render: function () {
-        var itemComment = this.state.commentList.map(function (item) {
-            return (
-                <Comment key={item.id} comment={item}/>
-            );
-        });
         return (
             <div>
                 {/*博客*/}
@@ -129,31 +175,38 @@ var BlogDetail = React.createClass({
                 {/*评论列表*/}
                 <List>
                     <Subheader>所有评论</Subheader>
-                    {itemComment}
+                    {
+                        //Todo undefined onReply onDelete?
+                        this.state.commentList.map(function (item) {
+                            return (
+                                <Comment
+                                    key={item.id}
+                                    comment={item}
+                                />
+                            );
+                        })
+                    }
                 </List>
+
                 {/*评论区*/}
                 <TextField
-                    hintText="你的评论"
+                    hintText='在此输入你的评论'
                     errorText="最多200字"
+                    value={this.state.value}
                     rows={1}
                     rowsMax={8}
+                    ref="YourComment"
                     multiLine={true}
                     fullWidth={true}
                     onChange={this.onTextChanged}
                 />
-                <FlatButton label="发表" primary={true} onClick={this.onPostComment}/>
+                <FlatButton label="发表" primary={true} onClick={this.doPostComment}/>
+
+                {/*回复评论Dialog*/}
+                <ReplyDialog open={this.state.openReplyDialog} replyComment={this.state.selectComment}
+                             onHandleClose={this.closeLoginDialog}/>
             </div>
         );
     },
-
-    // Todo
-    onReply: function (id) {
-        console.log("Reply" + id);
-    },
-    // Todo
-    onDelete: function (id) {
-        console.log("Delete" + id);
-    }
-
 });
 export default BlogDetail;

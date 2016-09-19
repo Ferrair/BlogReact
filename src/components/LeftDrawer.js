@@ -30,7 +30,7 @@ var LeftDrawer = React.createClass({
                     <Avatar
                         size={50}
                     />
-                    {CurrentUser.username}
+                    {CurrentUser.getUsername()}
                     {/*Open user information dialog.*/}
                     <InfoDialog open={this.state.openInfoDialog} onHandleClose={this.closeInfoDialog}/>
                 </MenuItem>
@@ -52,7 +52,7 @@ var LeftDrawer = React.createClass({
 
     openInfoDialog: function () {
         // Open Login Dialog, force user to login.
-        if (CurrentUser.id == null) {
+        if (!CurrentUser.isLogin()) {
             this.openLoginDialog();
             return;
         }

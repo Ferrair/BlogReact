@@ -30,26 +30,8 @@ var WorkList = React.createClass({
     getInitialState: function () {
         return {workList: []};
     },
-    // Todo : Ajax
-    componentDidMount: function () {
-        var data = [
-            {
-                id: 1,
-                title: "饭点",
-                description: "那里不会，点哪里",
-                fileName: "2016:12:21",
-                logoUrl: "3"
-            },
-            {
-                id: 2,
-                title: "指尖",
-                description: "广袤世界，在你指尖",
-                fileName: "2016:12:21",
-                logoUrl: "3"
-            }
-        ];
-        this.setState({workList: data});
 
+    componentDidMount: function () {
         $.get({
             url: API + '/work',
             data: {
@@ -68,9 +50,9 @@ var WorkList = React.createClass({
             }
         });
     },
-    // Todo
-    onDownload:function (event) {
-        console.log("Download Work");
+    // Todo Download
+    onDownload: function (url) {
+        console.log("Download Work" + url);
     },
 
     render: function () {
@@ -85,7 +67,7 @@ var WorkList = React.createClass({
                             key={item.img}
                             title={item.title}
                             subtitle={<span><b>{item.description}</b></span>}
-                            actionIcon={<IconButton onClick={this.onDownload}><FileFileDownload/></IconButton>}>
+                            actionIcon={<IconButton onClick={this.onDownload(item.logoUrl)}><FileFileDownload/></IconButton>}>
                             <img src={item.logoUrl}/>
                         </GridTile>
                     ))}

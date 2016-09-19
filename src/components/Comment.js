@@ -13,8 +13,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import BlogDetail from "./BlogDetail"
-
+import CurrentUser from "../manager/CurrentUser";
+import EventEmitterMixin from 'react-event-emitter-mixin';
 /*
  * Comment属性
  * id
@@ -27,18 +27,27 @@ import BlogDetail from "./BlogDetail"
  * creatorName 评论者名字
  */
 var Comment = React.createClass({
+    mixins: [EventEmitterMixin],
     render: function () {
         return (
             <div className="Comment">
                 <ListItem
-                    primaryText={this.props.comment.creatorName}
-                    secondaryText={this.props.comment.content}
+                    primaryText={this.props.value.creatorName}
+                    secondaryText={this.props.value.content}
                     leftAvatar={<Avatar size={40}/>}
                     initiallyOpen={false}
                     rightIconButton={
-                        <IconMenu iconButtonElement={iconButtonElement} onItemTouchTap={this.onMenuItemClicked}>
-                            <MenuItem>回复</MenuItem>
-                            <MenuItem>删除</MenuItem>
+                        <IconMenu iconButtonElement={iconButtonElement}>
+                            {/*Reply*/}
+                            <MenuItem onClick={this.reply}>回复</MenuItem>
+                            {/*Delete*/}
+                            {
+                                // Delete the Comment only by creator\.
+                                CurrentUser.id == this.props.value.createdBy
+                                    ?
+                                    <MenuItem onClick={this.delete}>删除</MenuItem>
+                                    : null
+                            }
                         </IconMenu>
                     }/>
                 <Divider inset={true}/>
@@ -46,13 +55,13 @@ var Comment = React.createClass({
         );
     },
 
-    onMenuItemClicked: function (event, child) {
-        if (child._shadowChildren == "回复") {
-            BlogDetail.prototype.onReply(this.props.comment.id);
-        } else if (child._shadowChildren == "删除") {
-            BlogDetail.prototype.onDelete(this.props.comment.id);
-        }
-    }
+    reply: function () {
+        this.eventEmitter('emit', 'reply', this.props.value);
+    },
+
+    delete: function () {
+        this.eventEmitter('emit', 'delete', this.props.value);
+    },
 });
 
 const iconButtonElement = (
