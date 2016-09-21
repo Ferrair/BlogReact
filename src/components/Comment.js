@@ -32,8 +32,8 @@ var Comment = React.createClass({
         return (
             <div className="Comment">
                 <ListItem
-                    primaryText={this.props.value.creatorName}
-                    secondaryText={this.props.value.content}
+                    primaryText={this.props.comment.creatorName}
+                    secondaryText={this.props.comment.content}
                     leftAvatar={<Avatar size={40}/>}
                     initiallyOpen={false}
                     rightIconButton={
@@ -42,8 +42,8 @@ var Comment = React.createClass({
                             <MenuItem onClick={this.reply}>回复</MenuItem>
                             {/*Delete*/}
                             {
-                                // Delete the Comment only by creator\.
-                                CurrentUser.id == this.props.value.createdBy
+                                // Delete the Comment only by creator.
+                                CurrentUser.getId() == this.props.comment.createdBy
                                     ?
                                     <MenuItem onClick={this.delete}>删除</MenuItem>
                                     : null
@@ -56,11 +56,11 @@ var Comment = React.createClass({
     },
 
     reply: function () {
-        this.eventEmitter('emit', 'reply', this.props.value);
+        this.eventEmitter('emit', 'reply', this.props.comment);
     },
 
     delete: function () {
-        this.eventEmitter('emit', 'delete', this.props.value);
+        this.eventEmitter('emit', 'delete', this.props.comment);
     },
 });
 

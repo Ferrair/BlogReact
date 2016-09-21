@@ -17,6 +17,7 @@ import $ from 'jquery';
 import API from '../app/Config';
 import EventEmitterMixin from 'react-event-emitter-mixin';
 import ReplyDialog from './ReplyDialog';
+import Validator from '../manager/Validator';
 
 var BlogDetail = React.createClass({
     /*
@@ -31,10 +32,7 @@ var BlogDetail = React.createClass({
     getInitialState: function () {
         return {blog: "", commentList: [], value: '', openReplyDialog: false, selectComment: null};
     },
-    componentDidMount: function () {
-        /*
-         *  Get Blog.
-         */
+    getBlog: function () {
         $.ajax({
             url: API + '/blog/queryById',
             data: {
@@ -52,15 +50,13 @@ var BlogDetail = React.createClass({
                  * data.Result is always array.
                  */
                 this.setState({blog: data.Result[0]});
-                console.log(this.state.blog);
             },
             error: function () {
                 console.log("AJAX错了");
             }
         });
-        /*
-         *  Get CommentList.
-         */
+    },
+    getComment: function (pageNum) {
         $.ajax({
             url: API + '/blog/queryComment',
             data: {
@@ -68,7 +64,7 @@ var BlogDetail = React.createClass({
                  * id is from BlogItem.
                  */
                 belongTo: this.props.params.id,
-                pageNum: 1
+                pageNum: pageNum
             },
             success: (data) => {
                 if (data.Code != 100) {
@@ -76,12 +72,20 @@ var BlogDetail = React.createClass({
                     return;
                 }
                 this.setState({commentList: data.Result});
-                console.log("CommentList-> " + this.state.commentList);
             },
             error: function () {
                 console.log("AJAX错了");
             }
         });
+    }, componentDidMount: function () {
+        /*
+         *  Get Blog.
+         */
+        this.getBlog();
+        /*
+         *  Get CommentList.
+         */
+        this.getComment(1);
     },
 
     componentWillMount(){
@@ -104,6 +108,9 @@ var BlogDetail = React.createClass({
     },
 
     doPostComment: function () {
+        if (Validator.isEmpty(this.state.value, "你的评论不能为空哦!"))
+            return;
+
         console.log(CurrentUser);
         $.ajax({
             url: API + '/blog/appendComment',
@@ -139,13 +146,12 @@ var BlogDetail = React.createClass({
     },
 
     onDelete: function (item) {
-        console.log("Delete" + item);
         this.setState({selectComment: item});
         $.ajax({
             url: API + '/blog/deleteById',
             type: "DELETE",
             data: {
-                id: item.id,
+                id: this.state.selectComment.id,
             },
             headers: {
                 'token': CurrentUser.getToken(),
@@ -203,10 +209,17 @@ var BlogDetail = React.createClass({
                 <FlatButton label="发表" primary={true} onClick={this.doPostComment}/>
 
                 {/*回复评论Dialog*/}
-                <ReplyDialog open={this.state.openReplyDialog} replyComment={this.state.selectComment}
-                             onHandleClose={this.closeLoginDialog}/>
+                <ReplyDialog open={this.state.openReplyDialog}
+                             replyComment={this.state.selectComment}
+                             blog={this.state.blog}
+                             onHandleClose={this.closeReplyDialog}
+                />
             </div>
         );
     },
+
+    closeReplyDialog: function () {
+        this.setState({openReplyDialog: false});
+    }
 });
 export default BlogDetail;

@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 import CurrentUser from "../manager/CurrentUser";
 import $ from 'jquery';
 import API from '../app/Config';
+import Validator from '../manager/Validator';
 
 var LoginDialog = React.createClass({
 
@@ -19,6 +20,10 @@ var LoginDialog = React.createClass({
     },
 
     doLogin: function () {
+        if (Validator.isEmpty(this.state.username, "你的用户名不能为空哦!"))
+            return;
+        if (Validator.isEmpty(this.state.password, "你的密码不能为空哦!"))
+            return;
         $.post({
             url: API + '/user/login',
             data: {
@@ -72,7 +77,7 @@ var LoginDialog = React.createClass({
             <FlatButton
                 label="取消"
                 primary={true}
-                keyboardFocused={true}
+                keyboardFocused={false}
                 onTouchTap={this.props.onHandleClose}
             />,
         ];

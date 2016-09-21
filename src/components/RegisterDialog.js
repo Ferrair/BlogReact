@@ -14,6 +14,7 @@ import TextField from 'material-ui/TextField';
 import CurrentUser from "../manager/CurrentUser";
 import $ from 'jquery';
 import API from '../app/Config';
+import Validator from '../manager/Validator';
 
 var RegisterDialog = React.createClass({
 
@@ -22,6 +23,10 @@ var RegisterDialog = React.createClass({
     },
 
     doRegister: function () {
+        if (Validator.isEmpty(this.state.username, "你的用户名不能为空哦!"))
+            return;
+        if (Validator.isEmpty(this.state.password, "你的密码不能为空哦!"))
+            return;
         $.post({
             url: API + '/user/register',
             data: {

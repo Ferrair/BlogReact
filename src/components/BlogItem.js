@@ -42,7 +42,6 @@ var BlogItem = React.createClass({
                     return;
                 }
                 this.setState({content: data.Result.content});
-                console.log(data.Result.content);
             },
             error: function () {
                 console.log("AJAX错了");

@@ -1,5 +1,6 @@
-5.JS Shadow DOW.
-React mixins
+1.分页
+2.删除评论
+3.Admin
 
 cd WQH/BlogReact
 npm run build && cp ~/WQH/BlogReact/build/* ~/WQH/Personal/web

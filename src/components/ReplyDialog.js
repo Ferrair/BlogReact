@@ -8,6 +8,7 @@ import CurrentUser from "../manager/CurrentUser";
 import $ from 'jquery';
 import API from '../app/Config';
 import TextField from 'material-ui/TextField';
+import Validator from '../manager/Validator';
 
 var ReplyDialog = React.createClass({
     getInitialState: function () {
@@ -17,14 +18,17 @@ var ReplyDialog = React.createClass({
         this.setState({value: event.target.value});
     },
     doReply: function () {
+        if (Validator.isEmpty(this.state.value, "你的回复不能为空哦!"))
+            return;
+
         $.ajax({
             url: API + '/blog/replyComment',
             type: "POST",
             data: {
-                belongTo: this.props.replyComment.id,
+                belongTo: this.props.blog.id,
                 content: this.state.value,
                 createdBy: CurrentUser.getId(),
-                replyTo: replyTo,
+                replyTo: this.props.replyComment.id,
             },
             headers: {
                 'token': CurrentUser.getToken(),
@@ -54,15 +58,19 @@ var ReplyDialog = React.createClass({
             <FlatButton
                 label="取消"
                 primary={true}
-                keyboardFocused={true}
+                keyboardFocused={false}
                 onTouchTap={this.props.onHandleClose}
             />,
         ];
-        var hint = "回复";
+        var hint = "回复 ";
+        if (this.props.replyComment != null) {
+            hint += this.props.replyComment.creatorName;
+        }
         return (
             <Dialog
                 actions={actions}
                 modal={false}
+                title='回复评论'
                 open={this.props.open}
                 autoScrollBodyContent={true}
                 autoDetectWindowHeight={true}
@@ -70,9 +78,11 @@ var ReplyDialog = React.createClass({
             >
                 <TextField
                     hintText={hint}
-                    errorText="必填"
-                    rows={3}
-                    multiLine={false}
+                    errorText="必填，回复最多200字哦"
+                    value={this.state.value}
+                    rows={1}
+                    rowsMax={8}
+                    multiLine={true}
                     fullWidth={true}
                     onChange={this.onCommentChanged}
                 />

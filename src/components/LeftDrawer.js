@@ -21,6 +21,11 @@ var LeftDrawer = React.createClass({
     },
 
     render: function () {
+        var username = '未登录';
+        if (CurrentUser.isLogin()) {
+            username = CurrentUser.getUsername();
+        }
+
         return (
             <Drawer docked={false}
                     width={300}
@@ -30,7 +35,7 @@ var LeftDrawer = React.createClass({
                     <Avatar
                         size={50}
                     />
-                    {CurrentUser.getUsername()}
+                    {username}
                     {/*Open user information dialog.*/}
                     <InfoDialog open={this.state.openInfoDialog} onHandleClose={this.closeInfoDialog}/>
                 </MenuItem>
