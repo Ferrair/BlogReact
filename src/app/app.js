@@ -10,6 +10,7 @@ import React from 'react';
 
 import App from './Content'
 import About from "../components/About";
+import Admin from "../components/Admin";
 import Index from "../components/Index";
 import BlogList from "../components/BlogList";
 import WorkList from "../components/WorkList";
@@ -22,6 +23,7 @@ ReactDOM.render((
         <Route path="/" component={App}>
             <IndexRoute component={Index}/>
             <Route path="/about" component={About}/>
+            <Route path="/admin" component={Admin}/>
             <Route path="/work-list" component={WorkList}/>
             <Route path="/blog-list" component={BlogList}/>
             <Route path="/blog/:id" component={BlogDetail}/>

@@ -8,10 +8,6 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import CurrentUser from "../manager/CurrentUser";
-import $ from 'jquery';
-import API from '../app/Config';
-import Validator from '../manager/Validator';
 
 var LoginDialog = React.createClass({
 
@@ -20,42 +16,7 @@ var LoginDialog = React.createClass({
     },
 
     doLogin: function () {
-        if (Validator.isEmpty(this.state.username, "你的用户名不能为空哦!"))
-            return;
-        if (Validator.isEmpty(this.state.password, "你的密码不能为空哦!"))
-            return;
-        $.post({
-            url: API + '/user/login',
-            data: {
-                username: this.state.username,
-                password: this.state.password,
-            },
-            success: (data) => {
-                if (data.Code != 100) {
-                    console.error("Error-> " + data.Code + " " + data.Msg);
-                } else {
-                    console.log("Login Success");
-                    CurrentUser.id = data.Result[0].id;
-                    CurrentUser.avatarUri = data.Result[0].avatarUri;
-                    CurrentUser.password = data.Result[0].password;
-                    CurrentUser.coverUri = data.Result[0].coverUri;
-                    CurrentUser.username = data.Result[0].username;
-                    CurrentUser.token = data.Result[0].token;
-                    CurrentUser.save();
-                }
-                /*
-                 * Close the login dialog by call onHandleClose in this.props(from LeftDrawer).
-                 */
-                this.props.onHandleClose();
-            },
-            error: function (xmlHttpRequest, textStatus, errorThrown) {
-                console.log("Error in Ajax.");
-                /*
-                 * Close the login dialog by call onHandleClose in this.props(from LeftDrawer).
-                 */
-                this.props.onHandleClose();
-            }
-        });
+        this.props.doLogin(this.state.username,this.state.password);
     },
 
     onUserNameChanged: function (event) {
@@ -104,6 +65,7 @@ var LoginDialog = React.createClass({
                 <TextField
                     hintText="密码"
                     errorText="必填"
+                    type="password"
                     rows={1}
                     multiLine={false}
                     fullWidth={true}

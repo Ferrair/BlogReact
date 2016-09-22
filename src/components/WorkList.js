@@ -19,8 +19,8 @@ const styles = {
         justifyContent: 'space-around',
     },
     gridList: {
-        width: 500,
-        height: 500,
+        width: '45%',
+        height: '45%',
         overflowY: 'auto',
         marginBottom: 24,
     },
@@ -67,7 +67,8 @@ var WorkList = React.createClass({
                             key={item.img}
                             title={item.title}
                             subtitle={<span><b>{item.description}</b></span>}
-                            actionIcon={<IconButton onClick={this.onDownload(item.logoUrl)}><FileFileDownload/></IconButton>}>
+                            actionIcon={<IconButton
+                                onClick={this.onDownload(item.logoUrl)}><FileFileDownload/></IconButton>}>
                             <img src={item.logoUrl}/>
                         </GridTile>
                     ))}

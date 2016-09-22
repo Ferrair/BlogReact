@@ -12,6 +12,9 @@ import LoginDialog from "./LoginDialog";
 import RegisterDialog from "./RegisterDialog";
 import InfoDialog from "./InfoDialog";
 import CurrentUser from "../manager/CurrentUser";
+import $ from 'jquery';
+import API from '../app/Config';
+import Validator from '../manager/Validator';
 
 
 var LeftDrawer = React.createClass({
@@ -19,7 +22,39 @@ var LeftDrawer = React.createClass({
         return {openLoginDialog: false, openInfoDialog: false, openRegisterDialog: false};
 
     },
-
+    doLogin: function (username, password) {
+        if (Validator.isEmpty(username, "你的用户名不能为空哦!"))
+            return;
+        if (Validator.isEmpty(password, "你的密码不能为空哦!"))
+            return;
+        $.ajax({
+            url: API + '/user/login',
+            type: "POST",
+            data: {
+                username: username,
+                password: password,
+            },
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                    console.log("Login Success");
+                    CurrentUser.id = data.Result[0].id;
+                    CurrentUser.avatarUri = data.Result[0].avatarUri;
+                    CurrentUser.password = data.Result[0].password;
+                    CurrentUser.coverUri = data.Result[0].coverUri;
+                    CurrentUser.username = data.Result[0].username;
+                    CurrentUser.token = data.Result[0].token;
+                    CurrentUser.save();
+                }
+                this.closeLoginDialog();
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                console.log("Error in Ajax.");
+                this.closeLoginDialog();
+            }
+        });
+    },
     render: function () {
         var username = '未登录';
         if (CurrentUser.isLogin()) {
@@ -42,7 +77,10 @@ var LeftDrawer = React.createClass({
                 <MenuItem onClick={this.openLoginDialog}>
                     登陆
                     {/*Open login dialog.*/}
-                    <LoginDialog open={this.state.openLoginDialog} onHandleClose={this.closeLoginDialog}/>
+                    <LoginDialog open={this.state.openLoginDialog}
+                                 onHandleClose={this.closeLoginDialog}
+                                 doLogin={this.doLogin}
+                    />
                 </MenuItem>
 
                 <MenuItem onClick={this.openRegisterDialog}>

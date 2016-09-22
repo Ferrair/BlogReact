@@ -144,6 +144,7 @@ var RegisterDialog = React.createClass({
                 <TextField
                     hintText="密码"
                     errorText="必填"
+                    type="password"
                     rows={1}
                     multiLine={false}
                     fullWidth={true}
@@ -151,6 +152,7 @@ var RegisterDialog = React.createClass({
                 />
                 <TextField
                     hintText="确认密码"
+                    type="password"
                     errorText="必填"
                     rows={1}
                     multiLine={false}

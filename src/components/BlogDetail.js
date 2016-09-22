@@ -78,7 +78,8 @@ var BlogDetail = React.createClass({
                 console.log("AJAX错了");
             }
         });
-    }, componentDidMount: function () {
+    },
+    componentDidMount: function () {
         /*
          *  Get Blog.
          */
@@ -94,8 +95,12 @@ var BlogDetail = React.createClass({
             this.onReply(comment);
         });
 
-        this.eventEmitter('on', 'delete', (comment, index)=> {
-            this.onDelete(comment, index);
+        this.eventEmitter('on', 'delete', (comment)=> {
+            this.onDelete(comment);
+        });
+
+        this.eventEmitter('on', 'replySuccess', (comment)=> {
+            this.onReplySuccess(comment);
         });
     },
 
@@ -106,6 +111,10 @@ var BlogDetail = React.createClass({
     },
     onTextChanged: function (event) {
         this.setState({value: event.target.value});
+    },
+
+    onReplySuccess: function (comment) {
+        this.setState({commentList: update(this.state.commentList, {$push: [comment]})});
     },
 
     doPostComment: function () {
@@ -133,7 +142,7 @@ var BlogDetail = React.createClass({
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
                     console.log(data.Result[0]);
-                    this.setState({commentList: update(this.state.commentList, {$push: [data.Result[0]]})})
+                    this.setState({commentList: update(this.state.commentList, {$push: [data.Result[0]]})});
                     this.setState({value: ''});
                 }
             },
@@ -150,7 +159,7 @@ var BlogDetail = React.createClass({
         this.setState({openReplyDialog: true, selectComment: item});
     },
 
-    onDelete: function (item, index) {
+    onDelete: function (item) {
         this.setState({selectComment: item});
         /*
          * The DELETE method requests that the origin server delete the resource identified by the Request-URI.

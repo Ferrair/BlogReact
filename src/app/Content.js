@@ -12,9 +12,10 @@ var App = React.createClass({
                 <div>
                     <MenuToolBar/>
                     <div style={{
-                        width: '60%',
+                        width: '70%',
                         maxWidth: 1000,
                         margin: '0 auto',
+                        overflow: '0 auto',
                     }}>
                         {this.props.children}
                     </div>

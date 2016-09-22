@@ -33,12 +33,13 @@
     "jquery": "latest",
     "material-ui": "^0.15.2",
     "react": "^15.0.1",
+    "react-cookie": "latest",
     "react-dom": "^15.0.1",
     "react-event-emitter-mixin": "0.0.4",
     "react-image-gallery": "latest",
+    "react-markdown-editor": "^0.4.0",
     "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
-    "remarkable": "^1.6.2",
-    "react-cookie": "latest"
+    "remarkable": "^1.6.2"
   }
 }

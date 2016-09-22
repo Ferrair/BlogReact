@@ -38,7 +38,10 @@ var ReplyDialog = React.createClass({
                 if (data.Code != 100) {
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
-                    alert("回复成功");
+                    /*
+                     * Inform BlogDetail to update commentList.
+                     */
+                    this.eventEmitter('emit', 'replySuccess', data.Result[0]);
                     this.props.onHandleClose();
                 }
             },
