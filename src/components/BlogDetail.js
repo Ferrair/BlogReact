@@ -18,6 +18,7 @@ import API from '../app/Config';
 import EventEmitterMixin from 'react-event-emitter-mixin';
 import ReplyDialog from './ReplyDialog';
 import Validator from '../manager/Validator';
+var update = require('react-addons-update');
 
 var BlogDetail = React.createClass({
     /*
@@ -93,8 +94,8 @@ var BlogDetail = React.createClass({
             this.onReply(comment);
         });
 
-        this.eventEmitter('on', 'delete', (comment)=> {
-            this.onDelete(comment);
+        this.eventEmitter('on', 'delete', (comment, index)=> {
+            this.onDelete(comment, index);
         });
     },
 
@@ -111,7 +112,10 @@ var BlogDetail = React.createClass({
         if (Validator.isEmpty(this.state.value, "你的评论不能为空哦!"))
             return;
 
-        console.log(CurrentUser);
+        if (CurrentUser.getId() == null) {
+            alert("你没有登录，请前往右侧进行登录");
+            return;
+        }
         $.ajax({
             url: API + '/blog/appendComment',
             type: "POST",
@@ -128,9 +132,10 @@ var BlogDetail = React.createClass({
                 if (data.Code != 100) {
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
+                    console.log(data.Result[0]);
+                    this.setState({commentList: update(this.state.commentList, {$push: [data.Result[0]]})})
+                    this.setState({value: ''});
                 }
-                this.setState({value: ''});
-                React.findDOMNode(this.refs.YourComment).value = '';
             },
             error: function (xmlHttpRequest, textStatus, errorThrown) {
                 console.log("Error in Ajax.");
@@ -145,14 +150,14 @@ var BlogDetail = React.createClass({
         this.setState({openReplyDialog: true, selectComment: item});
     },
 
-    onDelete: function (item) {
+    onDelete: function (item, index) {
         this.setState({selectComment: item});
+        /*
+         * The DELETE method requests that the origin server delete the resource identified by the Request-URI.
+         */
         $.ajax({
-            url: API + '/blog/deleteById',
+            url: API + '/blog/deleteById' + '?' + $.param({"id": item.id}),
             type: "DELETE",
-            data: {
-                id: this.state.selectComment.id,
-            },
             headers: {
                 'token': CurrentUser.getToken(),
                 'userID': CurrentUser.getId(),
@@ -161,12 +166,12 @@ var BlogDetail = React.createClass({
                 if (data.Code != 100) {
                     console.error("Error-> " + data.Code + " " + data.Msg);
                 } else {
-                    this.setState({value: '', commentList: this.commentList.push([data.Result[0]])});
+                    console.log(this.state.commentList.indexOf(item));
+                    this.setState({commentList: update(this.state.commentList, {$splice: [[index, this.state.commentList.indexOf(item) + 1]]})})
                 }
             },
             error: function (xmlHttpRequest, textStatus, errorThrown) {
                 console.log("Error in Ajax.");
-                this.setState({value: ''});
             }
         });
     },

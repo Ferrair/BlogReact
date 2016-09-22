@@ -1,6 +1,5 @@
 1.分页
-2.删除评论
-3.Admin
+2.Admin
 
 cd WQH/BlogReact
 npm run build && cp ~/WQH/BlogReact/build/* ~/WQH/Personal/web

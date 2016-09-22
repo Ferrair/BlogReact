@@ -60,7 +60,7 @@ var Comment = React.createClass({
     },
 
     delete: function () {
-        this.eventEmitter('emit', 'delete', this.props.comment);
+        this.eventEmitter('emit', 'delete', this.props.comment, this.props.key);
     },
 });
 
