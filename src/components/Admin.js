@@ -10,15 +10,16 @@ import $ from 'jquery';
 import API from '../app/Config';
 import Validator from '../manager/Validator';
 import FlatButton from 'material-ui/FlatButton';
+import EventEmitterMixin from 'react-event-emitter-mixin';
+import TextField from 'material-ui/TextField';
 var MarkdownEditor = require('react-markdown-editor').MarkdownEditor;
-
 /**
- * TODO
- * React-Route OnEnter,OnLeave.
+ * TODO React-Route OnEnter,OnLeave.
  */
 var Admin = React.createClass({
+    mixins: [EventEmitterMixin],
     getInitialState: function () {
-        return {openLoginDialog: false, allUser: [], allBlog: []};
+        return {openLoginDialog: false, allUser: [], allBlog: [], postBlog: '', blogTitle: ''};
     },
     getAllUser: function (pageNum) {
         $.ajax({
@@ -93,8 +94,65 @@ var Admin = React.createClass({
             }
         });
     },
+    postBlog: function () {
+        if (Validator.isEmpty(this.state.postBlog, "你的博客不能为空哦!"))
+            return;
+        if (Validator.isEmpty(this.state.blogTitle, "你的博客标题不能为空哦!"))
+            return;
+        $.ajax({
+            url: API + '/blog/publish',
+            type: "POST",
+            data: {},
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                }
+            },
+            error: function () {
+            }
+        });
+    },
+    onContentChange: function (content) {
+        this.setState({postBlog: content});
+    },
+    onTitleChange: function (event) {
+        this.setState({blogTitle: event.target.value});
+    },
+    componentWillMount(){
+        this.eventEmitter('on', 'deleteBlog', (blog)=> {
+            $.ajax({
+                url: API + '/blog/deleteById' + '?' + $.param({"id": blog.id}),
+                type: "DELETE",
+                success: (data) => {
+                    if (data.Code != 100) {
+                        console.error("Error-> " + data.Code + " " + data.Msg);
+                    } else {
+                        this.setState({allBlog: update(this.state.allBlog, {$splice: [[index, this.state.allBlog.indexOf(item) + 1]]})})
+                    }
+                },
+                error: function () {
+                    console.log("Error in Ajax.");
+                }
+            });
+        });
 
-    deleteUser: function (id) {
+        this.eventEmitter('on', 'deleteUser', (user)=> {
+            $.ajax({
+                url: API + '/user/deleteById' + '?' + $.param({"id": user.id}),
+                type: "DELETE",
+                success: (data) => {
+                    if (data.Code != 100) {
+                        console.error("Error-> " + data.Code + " " + data.Msg);
+                    } else {
+                        this.setState({allUser: update(this.state.allUser, {$splice: [[index, this.state.allUser.indexOf(item) + 1]]})})
+                    }
+                },
+                error: function () {
+                    console.log("Error in Ajax.");
+                }
+            });
+        });
 
     },
     render: function () {
@@ -106,12 +164,18 @@ var Admin = React.createClass({
                         <List>
                             {
                                 this.state.allUser.map(function (item) {
+                                    console.log(Admin);
                                     return (
                                         <ListItem
                                             primaryText={item.username}
                                             secondaryText={item.password}
                                             leftAvatar={<Avatar src={item.avatarUri}/>}
-                                            rightIconButton={<FlatButton label="删除" primary={true}/>}
+                                            rightIconButton={
+                                                <FlatButton label="删除" primary={true}
+                                                    // FIXME: cannot call eventEmitter
+                                                    // onClick={this.eventEmitter('emit', 'deleteUser', item)}
+                                                />
+                                            }
                                         >
                                         </ListItem>
                                     );
@@ -127,6 +191,12 @@ var Admin = React.createClass({
                                         <ListItem
                                             primaryText={item.title}
                                             secondaryText={item.type}
+                                            rightIconButton={
+                                                <FlatButton label="删除" primary={true}
+                                                    // FIXME: cannot call eventEmitter
+                                                    // onClick={this.eventEmitter('emit', 'deleteBlog', item)}
+                                                />
+                                            }
                                         >
                                             {item.createdAt}
                                         </ListItem>
@@ -136,8 +206,17 @@ var Admin = React.createClass({
                         </List>
                     </Tab>
                     <Tab label="发表博客">
-                        <MarkdownEditor initialContent="Input your blog here." iconsSet="font-awesome"/>
-                        <FlatButton label="发表" primary={true}/>
+                        <TextField
+                            hintText='博客标题'
+                            value={this.state.value}
+                            rows={1}
+                            multiLine={true}
+                            fullWidth={true}
+                            onChange={this.onTitleChange}
+                        />
+                        <MarkdownEditor onContentChange={this.onContentChange} initialContent="Input your blog here."
+                                        iconsSet="font-awesome"/>
+                        <FlatButton label="发表" primary={true} onClick={this.postBlog}/>
                     </Tab>
                 </Tabs>;
         }

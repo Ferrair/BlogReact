@@ -165,7 +165,7 @@ var BlogDetail = React.createClass({
          * The DELETE method requests that the origin server delete the resource identified by the Request-URI.
          */
         $.ajax({
-            url: API + '/blog/deleteById' + '?' + $.param({"id": item.id}),
+            url: API + '/blog/deleteCommentById' + '?' + $.param({"id": item.id}),
             type: "DELETE",
             headers: {
                 'token': CurrentUser.getToken(),

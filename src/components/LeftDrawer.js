@@ -67,9 +67,7 @@ var LeftDrawer = React.createClass({
                     open={this.props.open}
                     onRequestChange={this.props.onRequestChange}>
                 <MenuItem style={avatarStyle} onClick={this.openInfoDialog}>
-                    <Avatar
-                        size={50}
-                    />
+                    <Avatar size={50}/>
                     {username}
                     {/*Open user information dialog.*/}
                     <InfoDialog open={this.state.openInfoDialog} onHandleClose={this.closeInfoDialog}/>

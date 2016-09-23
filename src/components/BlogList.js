@@ -14,7 +14,6 @@ var BlogList = React.createClass({
     getInitialState: function () {
         return {blogList: []};
     },
-    // Todo : Ajax
     componentDidMount: function () {
         $.get({
             url: API + '/blog',
@@ -30,7 +29,7 @@ var BlogList = React.createClass({
                 this.setState({blogList: data.Result});
                 console.log("BlogList-> " + this.state.blogList);
             },
-            error: function (xmlHttpRequest, textStatus, errorThrown) {
+            error: function () {
                 console.log("Error in Ajax.");
             }
         });
