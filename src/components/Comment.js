@@ -56,6 +56,7 @@ var Comment = React.createClass({
     },
 
     reply: function () {
+        console.log('Reply');
         this.eventEmitter('emit', 'reply', this.props.comment);
     },
 

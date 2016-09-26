@@ -146,7 +146,7 @@ var BlogDetail = React.createClass({
                     this.setState({value: ''});
                 }
             },
-            error: function (xmlHttpRequest, textStatus, errorThrown) {
+            error: function () {
                 console.log("Error in Ajax.");
                 this.setState({value: ''});
                 React.findDOMNode(this.refs.YourComment).value = '';
@@ -179,7 +179,7 @@ var BlogDetail = React.createClass({
                     this.setState({commentList: update(this.state.commentList, {$splice: [[index, this.state.commentList.indexOf(item) + 1]]})})
                 }
             },
-            error: function (xmlHttpRequest, textStatus, errorThrown) {
+            error: function () {
                 console.log("Error in Ajax.");
             }
         });

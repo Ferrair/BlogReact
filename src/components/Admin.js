@@ -10,14 +10,20 @@ import $ from 'jquery';
 import API from '../app/Config';
 import Validator from '../manager/Validator';
 import FlatButton from 'material-ui/FlatButton';
-import EventEmitterMixin from 'react-event-emitter-mixin';
 import TextField from 'material-ui/TextField';
+import {grey400} from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+
 var MarkdownEditor = require('react-markdown-editor').MarkdownEditor;
+var update = require('react-addons-update');
 /**
- * TODO React-Route OnEnter,OnLeave.
+ * FIXME MenuItem onClick be called atomically.
  */
 var Admin = React.createClass({
-    mixins: [EventEmitterMixin],
     getInitialState: function () {
         return {openLoginDialog: false, allUser: [], allBlog: [], postBlog: '', blogTitle: ''};
     },
@@ -89,7 +95,7 @@ var Admin = React.createClass({
                     }
                 }
             },
-            error: function (xmlHttpRequest, textStatus, errorThrown) {
+            error: function () {
                 console.log("Error in Ajax.");
             }
         });
@@ -119,41 +125,37 @@ var Admin = React.createClass({
     onTitleChange: function (event) {
         this.setState({blogTitle: event.target.value});
     },
-    componentWillMount(){
-        this.eventEmitter('on', 'deleteBlog', (blog)=> {
-            $.ajax({
-                url: API + '/blog/deleteById' + '?' + $.param({"id": blog.id}),
-                type: "DELETE",
-                success: (data) => {
-                    if (data.Code != 100) {
-                        console.error("Error-> " + data.Code + " " + data.Msg);
-                    } else {
-                        this.setState({allBlog: update(this.state.allBlog, {$splice: [[index, this.state.allBlog.indexOf(item) + 1]]})})
-                    }
-                },
-                error: function () {
-                    console.log("Error in Ajax.");
+    deleteBlog: function (blog) {
+        $.ajax({
+            url: API + '/blog/deleteById' + '?' + $.param({"id": blog.id}),
+            type: "DELETE",
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                    this.setState({allBlog: update(this.state.allBlog, {$splice: [[index, this.state.allBlog.indexOf(item) + 1]]})})
                 }
-            });
+            },
+            error: function () {
+                console.log("Error in Ajax.");
+            }
         });
-
-        this.eventEmitter('on', 'deleteUser', (user)=> {
-            $.ajax({
-                url: API + '/user/deleteById' + '?' + $.param({"id": user.id}),
-                type: "DELETE",
-                success: (data) => {
-                    if (data.Code != 100) {
-                        console.error("Error-> " + data.Code + " " + data.Msg);
-                    } else {
-                        this.setState({allUser: update(this.state.allUser, {$splice: [[index, this.state.allUser.indexOf(item) + 1]]})})
-                    }
-                },
-                error: function () {
-                    console.log("Error in Ajax.");
+    },
+    deleteUser: function (user) {
+        $.ajax({
+            url: API + '/user/deleteById' + '?' + $.param({"id": user.id}),
+            type: "DELETE",
+            success: (data) => {
+                if (data.Code != 100) {
+                    console.error("Error-> " + data.Code + " " + data.Msg);
+                } else {
+                    this.setState({allUser: update(this.state.allUser, {$splice: [[index, this.state.allUser.indexOf(item) + 1]]})})
                 }
-            });
+            },
+            error: function () {
+                console.log("Error in Ajax.");
+            }
         });
-
     },
     render: function () {
         var content = null;
@@ -161,49 +163,59 @@ var Admin = React.createClass({
             content =
                 <Tabs>
                     <Tab label="所有用户">
+
                         <List>
                             {
                                 this.state.allUser.map(function (item) {
-                                    console.log(Admin);
                                     return (
-                                        <ListItem
-                                            primaryText={item.username}
-                                            secondaryText={item.password}
-                                            leftAvatar={<Avatar src={item.avatarUri}/>}
-                                            rightIconButton={
-                                                <FlatButton label="删除" primary={true}
-                                                    // FIXME: cannot call eventEmitter
-                                                    // onClick={this.eventEmitter('emit', 'deleteUser', item)}
-                                                />
-                                            }
-                                        >
-                                        </ListItem>
+                                        <div className="ItemUser">
+                                            <ListItem
+                                                primaryText={item.username}
+                                                secondaryText={item.password}
+                                                initiallyOpen={false}
+                                                leftAvatar={<Avatar src={item.avatarUri}/>}
+                                                rightIconButton={
+                                                    <IconMenu iconButtonElement={iconButtonElement}>
+                                                        {/*Delete*/}
+                                                        {/*<MenuItem onClick={this.deleteUser(item)}>删除</MenuItem>*/}
+                                                    </IconMenu>
+                                                }
+                                            />
+                                            <Divider inset={true}/>
+                                        </div>
                                     );
-                                })
+                                }, this)
                             }
                         </List>
+
                     </Tab>
                     <Tab label="所有博客">
+
                         <List>
                             {
                                 this.state.allBlog.map(function (item) {
                                     return (
-                                        <ListItem
-                                            primaryText={item.title}
-                                            secondaryText={item.type}
-                                            rightIconButton={
-                                                <FlatButton label="删除" primary={true}
-                                                    // FIXME: cannot call eventEmitter
-                                                    // onClick={this.eventEmitter('emit', 'deleteBlog', item)}
-                                                />
-                                            }
-                                        >
-                                            {item.createdAt}
-                                        </ListItem>
+                                        <div className="ItemBlog">
+                                            <ListItem
+                                                primaryText={item.title}
+                                                secondaryText={item.type}
+                                                initiallyOpen={false}
+                                                rightIconButton={
+                                                    <IconMenu iconButtonElement={iconButtonElement}>
+                                                        {/*Delete*/}
+                                                        {/*<MenuItem onClick={this.deleteBlog(item)}>删除</MenuItem>*/}
+                                                    </IconMenu>
+                                                }
+                                            >
+                                                {item.createdAt}
+                                            </ListItem>
+                                            <Divider inset={true}/>
+                                        </div>
                                     );
-                                })
+                                }, this)
                             }
                         </List>
+
                     </Tab>
                     <Tab label="发表博客">
                         <TextField
@@ -240,4 +252,14 @@ var Admin = React.createClass({
         this.setState({openLoginDialog: true});
     },
 });
+
+const iconButtonElement = (
+    <IconButton
+        touch={true}
+        tooltip="更多操作"
+        tooltipPosition="bottom-left"
+    >
+        <MoreVertIcon color={grey400}/>
+    </IconButton>
+);
 export default Admin;
