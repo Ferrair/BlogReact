@@ -40,6 +40,7 @@
     "react-markdown-editor": "^0.4.0",
     "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
-    "remarkable": "^1.6.2"
+    "remarkable": "^1.6.2",
+    "react-dropzone-component": "latest"
   }
 }
