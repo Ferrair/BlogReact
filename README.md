@@ -1,7 +1,9 @@
 该项目是学习`JS`和`React`,`material-ui`做的，可以用来学习`React`的一些基本用法。项目的目的是做一个前段的个人网站。但是美工没有好好做。。所以大家谅解。
 
 # ScrennShoot(具体的内容可以看`./screenshoot文件夹`)
+![APP](https://github.com/Ferrair/BlogReact/blob/master/screenshoot/QQ20161010-0.png?raw=true)
 
+![APP](https://github.com/Ferrair/BlogReact/blob/master/screenshoot/QQ20161010-1.png?raw=true)
 
 # Getting Started
 

@@ -3,3 +3,8 @@
 
 cd WQH/BlogReact
 npm run build && cp ~/WQH/BlogReact/build/* ~/WQH/Personal/web
+
+更换修改：
+1./app/Config中的API：数据请求
+2./components/MenuToolBar中的href 右上角按钮的路由
+3./components/BlogItem的hyperLink进入博客详情

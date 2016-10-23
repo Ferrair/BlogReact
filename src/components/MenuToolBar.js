@@ -26,9 +26,9 @@ var MenuToolBar = React.createClass({
                     iconElementLeft={<IconButton onTouchTap={this.openDrawer}><NavigationMenu/></IconButton>}
                     iconElementRight={
                         <div>
-                            <FlatButton label="博客" secondary={true} href="/#/blog-list"/>
-                            <FlatButton label="产品" secondary={true} href="/#/work-list"/>
-                            <FlatButton label="关于" secondary={true} href="/#/about"/>
+                            <FlatButton label="博客" secondary={true} href="http://www.wangqihang.cn:8080/Blog/#/blog-list"/>
+                            <FlatButton label="产品" secondary={true} href="http://www.wangqihang.cn:8080/Blog/#/work-list"/>
+                            <FlatButton label="关于" secondary={true} href="http://www.wangqihang.cn:8080/Blog/#/about"/>
                         </div>
                     }
                 />

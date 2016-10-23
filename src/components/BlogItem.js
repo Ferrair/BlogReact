@@ -60,7 +60,7 @@ var BlogItem = React.createClass({
         /*
          *
          */
-        var hyperlink = "/#/blog/" + this.props.blog.id;
+        var hyperlink = "http://www.wangqihang.cn:8080/Blog/#/blog/" + this.props.blog.id;
         return (
             <div className="Blog">
                 <Card expanded={this.state.expanded} onExpandChange={this.handleExpand}>
